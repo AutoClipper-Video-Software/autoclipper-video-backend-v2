@@ -4,7 +4,9 @@ import os
 import whisperx
 
 def download_audio_from_youtube_url(url: str) -> str:
-    '''Returns the audio file path if the audio was downloaded successfully.
+    '''Uses Pytube to download the audio of a YouTube video.
+    \n
+    Returns the path to the audio file if it was downloaded successfully.
     Otherwise, raises an exception.'''
 
     try:

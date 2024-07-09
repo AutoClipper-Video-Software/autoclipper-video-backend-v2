@@ -2,7 +2,7 @@ import pytube
 import random
 import os
 
-def download_audio_from_youtube_url(url: str) -> bool | str:
+def download_audio_from_youtube_url(url: str) -> str:
     '''Returns the audio file path if the audio was downloaded successfully.
     Otherwise, raises an exception.'''
 

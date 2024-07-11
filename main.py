@@ -1,4 +1,5 @@
 from Types.types import ClipTimestamp
+import json
 from scripts.video_editor import create_clip_from_video
 from scripts.video_downloader import download_youtube_video
 from moviepy.editor import VideoFileClip
@@ -32,10 +33,13 @@ for clip in clips:
     clip_audio = get_audio_from_clip(clip)
     move_audio_to_correct_folder(clip_audio)
 
-audio_files = [f for f in listdir("audios") if isfile(join("audios", f))]
+audio_files = [file for file in listdir("audios") if isfile(join("audios", file))]
 
 for audio_file in audio_files:
-    audio_transcript = transcribe_audio(
-        audio_file, run_on_gpu=False
-    )  # run_on_gpu must be True when in production
-    print(audio_transcript)
+    audio_file_path = f"audios/{audio_file}"
+
+    # run_on_gpu must be True when in production
+    audio_transcript = transcribe_audio(audio_file=audio_file_path, run_on_gpu=False)
+
+    with open(audio_transcript) as f:
+        subtitles_json = json.load(f)

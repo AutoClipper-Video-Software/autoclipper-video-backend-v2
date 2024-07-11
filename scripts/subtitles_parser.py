@@ -10,7 +10,7 @@ def has_partial_sentence(text):
     return False
 
 
-def parse(
+def parse_subtitles(
     segments: list[dict],
     fit_function: Callable,
     allow_partial_sentences: bool = False,

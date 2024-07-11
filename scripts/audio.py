@@ -1,7 +1,10 @@
 import pytube
 import random
 import os
+import shutil
 import whisperx
+import random
+from moviepy.editor import VideoFileClip
 
 
 def download_audio_from_youtube_url(url: str) -> str:
@@ -17,7 +20,7 @@ def download_audio_from_youtube_url(url: str) -> str:
         random_file_id = random.randint(0, 1000)
         audio_file_name = f"audio{random_file_id}.mp3"
 
-        audio_path = audio.download(filename=audio_file_name, output_path="audio")
+        audio_path = audio.download(filename=audio_file_name, output_path="audios")
 
         return os.path.abspath(audio_path)
 
@@ -25,7 +28,32 @@ def download_audio_from_youtube_url(url: str) -> str:
         raise
 
 
-def create_transcript_from_audio(audio_file: str, run_on_gpu: bool) -> str:
+def move_audio_to_correct_folder(audio_file: str):
+    """Simply moves an audio file to the "audios" folder. Creates the folder if it does not exist."""
+
+    destination_folder = "audios"
+
+    if not os.path.exists(destination_folder):
+        os.mkdir(destination_folder)
+
+    shutil.move(audio_file, f"{destination_folder}/{audio_file}")
+
+
+def get_audio_from_clip(clip: VideoFileClip) -> str:
+    """Given a MoviePy clip (`VideoFileClip`), get it's audio and save it to a .mp3 file.
+    Returns the path to the audio file."""
+
+    clip_audio = clip.audio
+
+    random_file_id = random.randint(0, 1000)
+    audio_file_name = f"audio{random_file_id}.mp3"
+
+    clip_audio.write_audiofile(audio_file_name)
+
+    return audio_file_name
+
+
+def transcribe_audio(audio_file: str, run_on_gpu: bool) -> str:
     """Uses WhisperX (https://github.com/m-bain/whisperx.git) to get the transcript of
     the audio file and and writes that to a JSON file. The path to the generated JSON file
     is returned."""

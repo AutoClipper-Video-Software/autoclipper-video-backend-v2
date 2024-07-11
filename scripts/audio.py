@@ -65,6 +65,7 @@ def transcribe_audio(audio_file: str, run_on_gpu: bool) -> str:
 
     device = "cuda"
 
+    # WARN: Test a more powerful model when running on production, not the "base" model
     model = whisperx.load_model("base", device=device, compute_type=compute_type)
     audio = whisperx.load_audio(audio_file)
     result = model.transcribe(audio, batch_size=16)

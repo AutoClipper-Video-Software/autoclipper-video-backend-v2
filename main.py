@@ -8,13 +8,14 @@ from scripts.video_editor import (
 from scripts.video_downloader import download_youtube_video
 from moviepy.editor import VideoFileClip
 
+
 video_url = "https://youtu.be/yQ4ZIwM1-Fg"  # should come from the app's front-end
 video_path = download_youtube_video(video_url)
 
 # should come from the AI part of the back-end
 clips_timestamps: list[ClipTimestamp] = [
     (32.746, 44.87),
-    (46.03, 62.447),
+    (46.03, 62.447)
 ]
 
 clips: list[VideoFileClip] = []

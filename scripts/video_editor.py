@@ -4,8 +4,6 @@ import random
 import moviepy.editor as mpy
 from moviepy.editor import VideoFileClip
 
-lines_cache = {}
-
 
 def create_clip_from_video(
     clip_start: float, clip_end: float, video_file_path: str

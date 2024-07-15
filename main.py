@@ -1,14 +1,12 @@
 from Types.types import ClipTimestamp
-from scripts.video_editor import create_clip_from_video
+import captacity
+import random
+from scripts.video_editor import (
+    create_clip_from_video,
+    save_clip_as_video,
+)
 from scripts.video_downloader import download_youtube_video
 from moviepy.editor import VideoFileClip
-from scripts.audio import (
-    get_audio_from_clip,
-    move_audio_to_correct_folder,
-    transcribe_audio,
-)
-from os import listdir
-from os.path import isfile, join
 
 video_url = "https://youtu.be/yQ4ZIwM1-Fg"  # should come from the app's front-end
 video_path = download_youtube_video(video_url)
@@ -29,13 +27,15 @@ for timestamp in clips_timestamps:
     clips.append(clip)
 
 for clip in clips:
-    clip_audio = get_audio_from_clip(clip)
-    move_audio_to_correct_folder(clip_audio)
+    videoclip = save_clip_as_video(clip)
 
-audio_files = [f for f in listdir("audios") if isfile(join("audios", f))]
+    clip_id = random.randint(0, 1000)
 
-for audio_file in audio_files:
-    audio_transcript = transcribe_audio(
-        audio_file, run_on_gpu=False
-    )  # run_on_gpu must be True when in production
-    print(audio_transcript)
+    captacity.add_captions(
+        video_file=videoclip,
+        output_file=f"edited_clips/edited_clip{clip_id}.mp4",
+        font="./fonts/Poppins-Bold.ttf",
+        shadow_strength=0,
+        shadow_blur=0,
+        use_local_whisper=True,
+    )

@@ -2,10 +2,7 @@
 import os
 import random
 import moviepy.editor as mpy
-from moviepy.editor import VideoFileClip, CompositeVideoClip
-from scripts.subtitles_parser import parse_subtitles
-from scripts.text_drawer import get_text_size_ex, Word, create_text_ex
-import re
+from moviepy.editor import VideoFileClip
 
 lines_cache = {}
 

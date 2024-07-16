@@ -1,4 +1,3 @@
-# Code based on https://github.com/unconv/captacity
 import os
 import random
 import moviepy.editor as mpy

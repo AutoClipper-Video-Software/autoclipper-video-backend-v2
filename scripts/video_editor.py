@@ -3,6 +3,13 @@ import random
 import moviepy.editor as mpy
 from moviepy.editor import VideoFileClip
 
+def resize_clip(clip: VideoFileClip) -> VideoFileClip:
+    # TODO
+    """Basically converts the clip to a video in "shorts" size.
+    \n
+    Returns the clip with it's new dimensions as a `VideoFileClip`."""
+
+    pass
 
 def create_clip_from_video(
     clip_start: float, clip_end: float, video_file_path: str

@@ -7,6 +7,7 @@ from editor import (
     create_video_from_clip,
     add_captions_to_clip,
 )
+from helpers.delete_files import delete_files
 
 video_url = "https://youtu.be/yQ4ZIwM1-Fg"  # should come from the app's front-end
 
@@ -29,3 +30,7 @@ for timestamp in clips_timestamps:
     videoclip = create_video_from_clip(resized_clip)
 
     add_captions_to_clip(videoclip)
+
+    delete_files([videoclip])
+
+delete_files([video_path, audio_path, video_with_audio])
